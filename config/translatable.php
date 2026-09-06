@@ -14,6 +14,7 @@ return [
     */
     'locales' => [
         'en',
+        'vi',
         'fr',
         'es' => [
             'MX', // mexican spanish

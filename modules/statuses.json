@@ -1,6 +1,6 @@
 {
+    "Core": true,
     "Auth": true,
     "Contact": true,
-    "Core": true,
     "Advertising": true
 }

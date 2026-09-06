@@ -21,24 +21,25 @@
         $userEmail = $user->email ?? 'admin@example.com';
         $userInitial = strtoupper(mb_substr($userName, 0, 1));
 
+        $currentLocale = app()->getLocale();
         $navigation = [
             [
-                'section' => __('Tổng quan'),
+                'section' => __('admin.sidebar.overview'),
                 'items' => [
-                    ['label' => __('Dashboard'), 'icon' => 'dashboard', 'route' => 'admin.dashboard', 'active' => request()->routeIs('admin.dashboard')],
+                    ['label' => __('admin.sidebar.dashboard'), 'icon' => 'dashboard', 'route' => 'admin.dashboard', 'active' => request()->routeIs('admin.dashboard')],
                 ],
             ],
             [
-                'section' => __('Quản lý'),
+                'section' => __('admin.sidebar.management'),
                 'items' => [
-                    ['label' => __('Liên hệ'), 'icon' => 'contact', 'route' => '#', 'active' => false],
-                    ['label' => __('Người dùng'), 'icon' => 'users', 'route' => '#', 'active' => false],
+                    ['label' => __('admin.sidebar.contacts'), 'icon' => 'contact', 'route' => '#', 'active' => false],
+                    ['label' => __('admin.sidebar.users'), 'icon' => 'users', 'route' => '#', 'active' => false],
                 ],
             ],
             [
-                'section' => __('Hệ thống'),
+                'section' => __('admin.sidebar.system'),
                 'items' => [
-                    ['label' => __('Cài đặt'), 'icon' => 'settings', 'route' => '#', 'active' => false],
+                    ['label' => __('admin.sidebar.settings'), 'icon' => 'settings', 'route' => '#', 'active' => false],
                 ],
             ],
         ];
@@ -117,7 +118,7 @@
                     <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
                         {!! $icons['chevron-left'] !!}
                     </svg>
-                    <span class="sidebar-label truncate">{{ __('Thu gọn') }}</span>
+                    <span class="sidebar-label truncate">{{ __('admin.sidebar.collapse') }}</span>
                 </button>
             </div>
         </aside>
@@ -154,7 +155,7 @@
                                     {!! $icons['search'] !!}
                                 </svg>
                             </span>
-                            <input id="global-search" type="search" autocomplete="off" placeholder="{{ __('Tìm kiếm...') }}"
+                            <input id="global-search" type="search" autocomplete="off" placeholder="{{ __('admin.search.placeholder') }}"
                                 class="w-full rounded-lg border-0 bg-gray-100 py-2.5 pl-10 pr-14 text-sm text-gray-900 placeholder-gray-400 outline-none ring-1 ring-transparent transition focus:bg-white focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500 dark:focus:bg-gray-900" />
                             <kbd class="pointer-events-none absolute inset-y-0 right-0 hidden items-center pr-3 text-xs font-medium text-gray-400 sm:flex dark:text-gray-500">
                                 Ctrl K
@@ -172,7 +173,7 @@
                         {{-- Theme toggle --}}
                         <button id="theme-toggle" type="button" data-theme-icon
                             class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
-                            aria-label="{{ __('Đổi giao diện') }}">
+                            aria-label="{{ __('admin.topbar.switch_theme') }}">
                             <svg data-icon="sun" class="hidden h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
                                 {!! $icons['sun'] !!}
                             </svg>
@@ -185,7 +186,7 @@
                         <div class="relative">
                             <button type="button" data-dropdown="notifications-menu"
                                 class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
-                                aria-label="{{ __('Thông báo') }}" aria-expanded="false">
+                                aria-label="{{ __('admin.topbar.notifications') }}" aria-expanded="false">
                                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
                                     {!! $icons['bell'] !!}
                                 </svg>
@@ -198,14 +199,14 @@
                             <div id="notifications-menu" data-dropdown-menu
                                 class="absolute right-0 top-full z-30 mt-2 hidden w-80 rounded-xl border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-900">
                                 <div class="flex items-center justify-between border-b border-gray-100 px-4 py-3 dark:border-gray-800">
-                                    <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ __('Thông báo') }}</p>
+                                    <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ __('admin.topbar.notifications') }}</p>
                                     <span class="rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-300">3</span>
                                 </div>
                                 <div class="max-h-72 overflow-y-auto p-2">
                                     @foreach ([
-                                        ['title' => __('Liên hệ mới'), 'desc' => __('Nguyễn Văn A vừa gửi liên hệ'), 'time' => '2 phút'],
-                                        ['title' => __('Người dùng mới'), 'desc' => __('demo@gmail.com vừa đăng ký'), 'time' => '1 giờ'],
-                                        ['title' => __('Báo cáo hàng tuần'), 'desc' => __('Báo cáo tuần đã sẵn sàng'), 'time' => '1 ngày'],
+                                        ['title' => __('admin.notifications.new_contact'), 'desc' => __('admin.notifications.contact_desc'), 'time' => __('admin.notifications.time_2min')],
+                                        ['title' => __('admin.notifications.new_user'), 'desc' => __('admin.notifications.user_desc'), 'time' => __('admin.notifications.time_1hour')],
+                                        ['title' => __('admin.notifications.weekly_report'), 'desc' => __('admin.notifications.report_desc'), 'time' => __('admin.notifications.time_1day')],
                                     ] as $notif)
                                         <a href="#" class="flex gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-gray-50 dark:hover:bg-gray-800">
                                             <span class="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-indigo-500"></span>
@@ -219,9 +220,45 @@
                                 </div>
                                 <div class="border-t border-gray-100 p-2 dark:border-gray-800">
                                     <a href="#" class="block rounded-lg px-3 py-2 text-center text-sm font-medium text-indigo-600 transition-colors hover:bg-indigo-50 dark:text-indigo-400 dark:hover:bg-indigo-500/10">
-                                        {{ __('Xem tất cả') }}
+                                        {{ __('admin.topbar.view_all') }}
                                     </a>
                                 </div>
+                            </div>
+                        </div>
+
+                        {{-- Language switcher --}}
+                        <div class="relative">
+                            <button type="button" data-dropdown="locale-menu"
+                                class="inline-flex h-10 items-center gap-1.5 rounded-lg px-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
+                                aria-expanded="false">
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5a17.92 17.92 0 01-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+                                </svg>
+                                <span class="hidden sm:inline">{{ $currentLocale === 'vi' ? 'VI' : 'EN' }}</span>
+                                <svg class="hidden h-3 w-3 sm:block" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                                    {!! $icons['chevron-down'] !!}
+                                </svg>
+                            </button>
+
+                            <div id="locale-menu" data-dropdown-menu
+                                class="absolute right-0 top-full z-30 mt-2 hidden w-40 rounded-xl border border-gray-200 bg-white py-1.5 shadow-lg dark:border-gray-700 dark:bg-gray-900">
+                                @foreach (['en' => 'English', 'vi' => 'Tiếng Việt'] as $code => $label)
+                                    <a href="{{ route('locale.set', $code) }}"
+                                        @class([
+                                            'flex items-center gap-2 px-4 py-2 text-sm transition-colors',
+                                            'font-semibold text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-300' => $currentLocale === $code,
+                                            'text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-800' => $currentLocale !== $code,
+                                        ])>
+                                        @if ($currentLocale === $code)
+                                            <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                            </svg>
+                                        @else
+                                            <span class="h-4 w-4 shrink-0"></span>
+                                        @endif
+                                        {{ $label }}
+                                    </a>
+                                @endforeach
                             </div>
                         </div>
 
@@ -251,11 +288,11 @@
                                 <div class="py-1.5">
                                     <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-800">
                                         <svg class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">{!! $icons['user'] !!}</svg>
-                                        {{ __('Hồ sơ') }}
+                                        {{ __('admin.user_menu.profile') }}
                                     </a>
                                     <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-800">
                                         <svg class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">{!! $icons['cog'] !!}</svg>
-                                        {{ __('Cài đặt') }}
+                                        {{ __('admin.user_menu.settings') }}
                                     </a>
                                 </div>
                                 <div class="border-t border-gray-100 py-1.5 dark:border-gray-800">
@@ -264,13 +301,13 @@
                                             @csrf
                                             <button type="submit" class="flex w-full items-center gap-3 px-4 py-2 text-sm text-red-600 transition-colors hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-500/10">
                                                 <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">{!! $icons['logout'] !!}</svg>
-                                                {{ __('Đăng xuất') }}
+                                                {{ __('admin.user_menu.logout') }}
                                             </button>
                                         </form>
                                     @else
-                                        <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-red-600 transition-colors hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-500/10">
+                                        <a href="#" class="flex w-full items-center gap-3 px-4 py-2 text-sm text-red-600 transition-colors hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-500/10">
                                             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">{!! $icons['logout'] !!}</svg>
-                                            {{ __('Đăng xuất') }}
+                                            {{ __('admin.user_menu.logout') }}
                                         </a>
                                     @endif
                                 </div>
@@ -287,7 +324,7 @@
 
             {{-- Footer --}}
             <footer class="border-t border-gray-200 px-4 py-4 text-center text-xs text-gray-400 dark:border-gray-800 dark:text-gray-600">
-                &copy; {{ date('Y') }} {{ config('app.name', 'Admin') }}. {{ __('Bảo lưu mọi quyền.') }}
+                &copy; {{ date('Y') }} {{ config('app.name', 'Admin') }}. {{ __('admin.footer') }}
             </footer>
         </div>
     </div>
@@ -304,6 +341,8 @@
             ])
             ->values()
             ->all();
+
+        $localeLabels = __('admin.lang');
     @endphp
     <script type="application/json" id="search-index">
         @json($searchIndex)
