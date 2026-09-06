@@ -1,0 +1,30 @@
+{
+    "name": "digbly/advertising",
+    "description": "",
+    "authors": [
+        {
+            "name": "The Digbly Team",
+            "email": "openscource@digbly.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Advertising\\": "app/",
+            "Modules\\Advertising\\Database\\Factories\\": "database/factories/",
+            "Modules\\Advertising\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Advertising\\Tests\\": "tests/"
+        }
+    }
+}

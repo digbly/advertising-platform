@@ -6,12 +6,11 @@ use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Auth\Models\BaseUser;
-use Modules\Membership\Traits\HasMembership;
 
 class User extends BaseUser implements MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, HasMembership;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
