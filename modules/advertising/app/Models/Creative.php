@@ -18,7 +18,6 @@ class Creative extends Model
      */
     protected $fillable = [
         'campaign_id',
-        'type',
         'image',
         'title',
         'description',
