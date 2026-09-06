@@ -293,15 +293,20 @@
     </div>
 
     {{-- Search index --}}
-    <script type="application/json" id="search-index">
-        @json(
-            collect($navigation)->flatMap(fn ($group) => $group['items'])->map(fn ($item) => [
+    @php
+        $searchIndex = collect($navigation)
+            ->flatMap(fn ($group) => $group['items'])
+            ->map(fn ($item) => [
                 'label' => $item['label'],
                 'url' => $item['route'] === '#' ? '#' : route($item['route']),
                 'keywords' => $item['label'],
                 'icon' => '<svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">' . $icons[$item['icon']] . '</svg>',
-            ])->values()
-        )
+            ])
+            ->values()
+            ->all();
+    @endphp
+    <script type="application/json" id="search-index">
+        @json($searchIndex)
     </script>
 
     @stack('scripts')

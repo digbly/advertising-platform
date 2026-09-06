@@ -85,10 +85,29 @@
         setCollapsed(!document.body.classList.contains('sidebar-collapsed'));
     }
 
+    // Đồng bộ trạng thái collapsed theo viewport:
+    // - Mobile: bỏ collapsed để menu hiển thị đầy đủ (không ghi đè preference)
+    // - Desktop: khôi phục collapsed nếu đã lưu
+    function syncCollapsedWithViewport() {
+        if (isDesktop()) {
+            if (localStorage.getItem(STORAGE_SIDEBAR) === '1' && !document.body.classList.contains('sidebar-collapsed')) {
+                setCollapsed(true);
+            }
+        } else if (document.body.classList.contains('sidebar-collapsed')) {
+            document.body.classList.remove('sidebar-collapsed');
+            sidebar?.classList.remove('lg:w-20');
+            sidebar?.classList.add('lg:w-64');
+            mainContent?.classList.remove('lg:pl-20');
+            mainContent?.classList.add('lg:pl-64');
+        }
+    }
+
     // Khôi phục trạng thái collapse đã lưu (chỉ áp dụng trên desktop)
-    if (localStorage.getItem(STORAGE_SIDEBAR) === '1') {
+    if (localStorage.getItem(STORAGE_SIDEBAR) === '1' && isDesktop()) {
         setCollapsed(true);
     }
+
+    window.addEventListener('resize', syncCollapsedWithViewport);
 
     /* =========================================================
      * Dropdown (user menu, notifications)

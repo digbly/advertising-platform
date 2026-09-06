@@ -7,19 +7,21 @@
     --font-sans: 'Figtree', ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 
-/* ===== Sidebar collapsed (desktop) ===== */
-body.sidebar-collapsed .sidebar-label,
-body.sidebar-collapsed .sidebar-section-title,
-body.sidebar-collapsed .sidebar-brand-text {
-    display: none;
-}
+/* ===== Sidebar collapsed (chỉ áp dụng trên desktop lg+) ===== */
+@media (min-width: 1024px) {
+    body.sidebar-collapsed .sidebar-label,
+    body.sidebar-collapsed .sidebar-section-title,
+    body.sidebar-collapsed .sidebar-brand-text {
+        display: none;
+    }
 
-body.sidebar-collapsed .sidebar-nav-link {
-    justify-content: center;
-}
+    body.sidebar-collapsed .sidebar-nav-link {
+        justify-content: center;
+    }
 
-body.sidebar-collapsed .sidebar-nav-link svg {
-    margin: 0;
+    body.sidebar-collapsed .sidebar-nav-link svg {
+        margin: 0;
+    }
 }
 
 /* ===== Scrollbar tinh gọn ===== */
