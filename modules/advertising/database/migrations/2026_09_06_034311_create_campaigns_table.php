@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name', 100);
             $table->uuid('category_id')->nullable();
-            $table->string('code', 16)->unique()->collation('utf8mb4_bin');
+            $table->string('code', 16)->unique();
             $table->string('status', 20)->index()->default('draft')
                 ->comment('draft, publish');
             $table->unsignedBigInteger('views')->default(0);
