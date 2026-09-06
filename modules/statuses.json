@@ -4,5 +4,6 @@
     "Contact": true,
     "Advertising": true,
     "Frontend": true,
-    "Admin": true
+    "Admin": true,
+    "Payment": true
 }
