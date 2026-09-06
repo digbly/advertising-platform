@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Campaign extends Model
+class WithdrawalRequest extends Model
 {
     use HasFactory, HasUuids;
 
@@ -19,16 +18,10 @@ class Campaign extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'category_id',
-        'code',
-        'status',
-        'rate',
-        'budget_total',
-        'budget_daily',
-        'geo_countries',
-        'device_types',
         'user_id',
+        'amount',
+        'method',
+        'status',
     ];
 
     /**
@@ -39,27 +32,15 @@ class Campaign extends Model
     protected function casts(): array
     {
         return [
-            'rate' => 'decimal:4',
-            'budget_total' => 'decimal:2',
-            'budget_daily' => 'decimal:2',
-            'geo_countries' => 'array',
-            'device_types' => 'array',
+            'amount' => 'decimal:2',
         ];
     }
 
     /**
-     * The user acting as advertiser who owns this campaign.
+     * The user (acting as publisher) who requested this withdrawal.
      */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * The creatives that rotate during delivery.
-     */
-    public function creatives(): HasMany
-    {
-        return $this->hasMany(Creative::class);
     }
 }

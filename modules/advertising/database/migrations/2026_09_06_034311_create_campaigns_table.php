@@ -15,13 +15,15 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name', 100);
             $table->uuid('category_id')->nullable();
-            $table->string('code', 16)->unique()->collation('utf8mb4_bin');
+            $table->string('code', 16)->unique();
             $table->string('status', 20)->index()->default('draft')
-                ->comment('draft, publish');
-            $table->unsignedBigInteger('views')->default(0);
-            $table->decimal('amount_per_click', 10, 4);
+                ->comment('draft, pending, active, paused, ended');
+            $table->decimal('rate', 10, 4);
+            $table->decimal('budget_total', 10, 2)->nullable();
+            $table->decimal('budget_daily', 10, 2)->nullable();
+            $table->json('geo_countries')->nullable();
+            $table->json('device_types')->nullable();
             $table->uuid('user_id');
-            $table->string('target_url', 500);
             $table->datetimes();
 
             $table->foreign('user_id')

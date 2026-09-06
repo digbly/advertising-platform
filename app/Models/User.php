@@ -22,6 +22,9 @@ class User extends BaseUser implements MustVerifyEmail
         'email',
         'password',
         'role',
+        'company_name',
+        'payout_method',
+        'payout_account',
     ];
 
     /**
@@ -45,6 +48,7 @@ class User extends BaseUser implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'is_super_admin' => 'boolean',
+            'amount' => 'decimal:2',
         ];
     }
 }

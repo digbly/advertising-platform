@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class Campaign extends Model
+class Transaction extends Model
 {
     use HasFactory, HasUuids;
 
@@ -19,16 +19,12 @@ class Campaign extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'category_id',
-        'code',
-        'status',
-        'rate',
-        'budget_total',
-        'budget_daily',
-        'geo_countries',
-        'device_types',
         'user_id',
+        'type',
+        'amount',
+        'balance_after',
+        'cause_id',
+        'cause_type',
     ];
 
     /**
@@ -39,16 +35,13 @@ class Campaign extends Model
     protected function casts(): array
     {
         return [
-            'rate' => 'decimal:4',
-            'budget_total' => 'decimal:2',
-            'budget_daily' => 'decimal:2',
-            'geo_countries' => 'array',
-            'device_types' => 'array',
+            'amount' => 'decimal:2',
+            'balance_after' => 'decimal:2',
         ];
     }
 
     /**
-     * The user acting as advertiser who owns this campaign.
+     * The user whose balance this movement affects.
      */
     public function user(): BelongsTo
     {
@@ -56,10 +49,10 @@ class Campaign extends Model
     }
 
     /**
-     * The creatives that rotate during delivery.
+     * The record that caused this movement (daily stat, withdrawal request, etc.).
      */
-    public function creatives(): HasMany
+    public function cause(): MorphTo
     {
-        return $this->hasMany(Creative::class);
+        return $this->morphTo();
     }
 }
