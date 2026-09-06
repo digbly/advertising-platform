@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Auth\Http\Controllers\ApiKeyController;
-use Modules\Auth\Http\Controllers\AuthController;
-use Modules\Auth\Http\Controllers\CaptchaController;
-use Modules\Auth\Http\Controllers\ProfileController;
-use Modules\Auth\Http\Controllers\SocialLoginController;
+use Modules\Auth\Http\Controllers\API\ApiKeyController;
+use Modules\Auth\Http\Controllers\API\AuthController;
+use Modules\Auth\Http\Controllers\API\CaptchaController;
+use Modules\Auth\Http\Controllers\API\ProfileController;
+use Modules\Auth\Http\Controllers\API\SocialLoginController;
 
 /*
 |--------------------------------------------------------------------------

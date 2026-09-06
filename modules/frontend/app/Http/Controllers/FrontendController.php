@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 class FrontendController extends Controller
 {
     /**
+     * Display the public homepage.
+     */
+    public function home()
+    {
+        return view('frontend::index');
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()
