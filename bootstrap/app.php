@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Middleware\SetLocale;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Modules\Auth\Http\Middleware\AdminMiddleware;
 use Modules\Auth\Http\Middleware\Captcha;
+use Modules\Core\Http\Middleware\SetLocale;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(

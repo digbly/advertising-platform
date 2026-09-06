@@ -1,0 +1,27 @@
+<?php
+
+namespace Modules\Core\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+// use Modules\Core\Database\Factories\SettingFactory;
+
+class Setting extends Model
+{
+    use HasFactory;
+
+    protected $keyType = 'string';
+
+    /**
+     * The attributes that are mass assignable.
+     */
+    protected $fillable = [
+        'key',
+        'value',
+    ];
+
+    // protected static function newFactory(): SettingFactory
+    // {
+    //     // return SettingFactory::new();
+    // }
+}
