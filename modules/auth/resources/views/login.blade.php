@@ -2,7 +2,7 @@
     title="Welcome back"
     subtitle="Sign in to your account to continue."
 >
-    <form method="POST" action="{{ route('api.auth.user.login') }}" class="space-y-5">
+    <form method="POST" action="{{ route('auth.login') }}" class="space-y-5">
         @csrf
 
         {{-- Global error --}}

@@ -17,7 +17,7 @@
             </p>
         </div>
 
-        <form method="POST" action="{{ route('api.auth.user.resend-verification-email') }}" class="space-y-4">
+        <form method="POST" action="{{ route('auth.verify-email.resend') }}" class="space-y-4">
             @csrf
 
             <x-auth::button>Resend verification email</x-auth::button>

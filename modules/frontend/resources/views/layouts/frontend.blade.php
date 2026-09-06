@@ -37,8 +37,16 @@
 
             {{-- Actions --}}
             <div class="hidden items-center gap-3 lg:flex">
-                <a href="#" class="rounded-lg px-4 py-2 text-sm font-semibold text-slate-200 transition hover:text-cyan-400">Sign In</a>
-                <a href="#" class="rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/30 transition hover:opacity-90">Get Started</a>
+                @auth
+                    <a href="{{ route('admin.dashboard') }}" class="rounded-lg px-4 py-2 text-sm font-semibold text-slate-200 transition hover:text-cyan-400">Dashboard</a>
+                    <form method="POST" action="{{ route('auth.logout') }}" class="inline">
+                        @csrf
+                        <button type="submit" class="rounded-lg border border-white/15 px-4 py-2 text-sm font-semibold text-slate-200 transition hover:bg-white/10">Logout</button>
+                    </form>
+                @else
+                    <a href="{{ route('auth.login') }}" class="rounded-lg px-4 py-2 text-sm font-semibold text-slate-200 transition hover:text-cyan-400">Sign In</a>
+                    <a href="{{ route('auth.register') }}" class="rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/30 transition hover:opacity-90">Get Started</a>
+                @endauth
             </div>
 
             {{-- Mobile toggle --}}
@@ -59,8 +67,16 @@
                 <a href="#testimonials" class="rounded-lg px-3 py-2 hover:bg-white/10 hover:text-cyan-400">Testimonials</a>
                 <a href="#faq" class="rounded-lg px-3 py-2 hover:bg-white/10 hover:text-cyan-400">FAQ</a>
                 <div class="mt-2 flex gap-3 border-t border-white/10 pt-3">
-                    <a href="#" class="flex-1 rounded-lg border border-white/15 px-4 py-2 text-center font-semibold text-slate-200">Sign In</a>
-                    <a href="#" class="flex-1 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-center font-semibold text-white">Get Started</a>
+                    @auth
+                        <a href="{{ route('admin.dashboard') }}" class="flex-1 rounded-lg border border-white/15 px-4 py-2 text-center font-semibold text-slate-200">Dashboard</a>
+                        <form method="POST" action="{{ route('auth.logout') }}" class="flex-1">
+                            @csrf
+                            <button type="submit" class="w-full rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-center font-semibold text-white">Logout</button>
+                        </form>
+                    @else
+                        <a href="{{ route('auth.login') }}" class="flex-1 rounded-lg border border-white/15 px-4 py-2 text-center font-semibold text-slate-200">Sign In</a>
+                        <a href="{{ route('auth.register') }}" class="flex-1 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-center font-semibold text-white">Get Started</a>
+                    @endauth
                 </div>
             </div>
         </div>
