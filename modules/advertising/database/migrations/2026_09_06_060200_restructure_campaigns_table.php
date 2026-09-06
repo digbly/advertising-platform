@@ -17,14 +17,8 @@ return new class extends Migration
             $table->decimal('budget_daily', 10, 2)->nullable();
             $table->json('geo_countries')->nullable();
             $table->json('device_types')->nullable();
-        });
-
-        Schema::table('campaigns', function (Blueprint $table) {
             $table->string('status', 20)->default('draft')
                 ->comment('draft, pending, active, paused, ended')->change();
-        });
-
-        Schema::table('campaigns', function (Blueprint $table) {
             $table->dropColumn(['views', 'amount_per_click', 'target_url']);
         });
     }
@@ -38,14 +32,8 @@ return new class extends Migration
             $table->unsignedBigInteger('views')->default(0);
             $table->decimal('amount_per_click', 10, 4);
             $table->string('target_url', 500);
-        });
-
-        Schema::table('campaigns', function (Blueprint $table) {
             $table->string('status', 20)->default('draft')
                 ->comment('draft, publish')->change();
-        });
-
-        Schema::table('campaigns', function (Blueprint $table) {
             $table->dropColumn(['rate', 'budget_total', 'budget_daily', 'geo_countries', 'device_types']);
         });
     }
