@@ -25,7 +25,6 @@ class User extends BaseUser implements MustVerifyEmail
         'company_name',
         'payout_method',
         'payout_account',
-        'amount',
     ];
 
     /**

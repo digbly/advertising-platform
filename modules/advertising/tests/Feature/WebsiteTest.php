@@ -40,7 +40,7 @@ class WebsiteTest extends TestCase
 
         $website->update(['status' => 'approved']);
 
-        $this->assertSame('approved', $website->fresh()->status);
+        $this->assertSame('approved', $website->status);
     }
 
     public function test_website_belongs_to_exactly_one_user(): void

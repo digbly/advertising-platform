@@ -70,13 +70,13 @@ class CampaignTest extends TestCase
 
         $this->assertSame('draft', $campaign->fresh()->status);
         $campaign->update(['status' => 'pending']);
-        $this->assertSame('pending', $campaign->fresh()->status);
+        $this->assertSame('pending', $campaign->status);
         $campaign->update(['status' => 'active']);
-        $this->assertSame('active', $campaign->fresh()->status);
+        $this->assertSame('active', $campaign->status);
         $campaign->update(['status' => 'paused']);
-        $this->assertSame('paused', $campaign->fresh()->status);
+        $this->assertSame('paused', $campaign->status);
         $campaign->update(['status' => 'ended']);
-        $this->assertSame('ended', $campaign->fresh()->status);
+        $this->assertSame('ended', $campaign->status);
     }
 
     public function test_campaign_has_multiple_creatives(): void

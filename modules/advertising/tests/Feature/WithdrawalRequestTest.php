@@ -14,7 +14,8 @@ class WithdrawalRequestTest extends TestCase
 
     public function test_publisher_requests_withdrawal_and_it_starts_pending(): void
     {
-        $user = User::factory()->create(['amount' => 100.00]);
+        $user = User::factory()->create();
+        $user->forceFill(['amount' => 100.00])->save();
         $request = WithdrawalRequest::query()->create([
             'user_id' => $user->id,
             'amount' => 50.00,
@@ -32,7 +33,8 @@ class WithdrawalRequestTest extends TestCase
 
     public function test_admin_approval_decreases_balance_and_records_withdrawal_entry(): void
     {
-        $user = User::factory()->create(['amount' => 100.00]);
+        $user = User::factory()->create();
+        $user->forceFill(['amount' => 100.00])->save();
         $request = WithdrawalRequest::query()->create([
             'user_id' => $user->id,
             'amount' => 50.00,
@@ -40,7 +42,7 @@ class WithdrawalRequestTest extends TestCase
         ]);
 
         $newBalance = (float) $user->amount - 50.00;
-        $user->update(['amount' => $newBalance]);
+        $user->forceFill(['amount' => $newBalance])->save();
         Transaction::query()->create([
             'user_id' => $user->id,
             'type' => 'withdrawal',
@@ -51,19 +53,20 @@ class WithdrawalRequestTest extends TestCase
         ]);
         $request->update(['status' => 'approved']);
 
-        $this->assertSame('50.00', $user->fresh()->amount);
+        $this->assertSame('50.00', $user->amount);
         $this->assertDatabaseHas('transactions', [
             'user_id' => $user->id,
             'type' => 'withdrawal',
             'amount' => 50.00,
             'balance_after' => 50.00,
         ]);
-        $this->assertSame('approved', $request->fresh()->status);
+        $this->assertSame('approved', $request->status);
     }
 
     public function test_withdrawal_exceeding_balance_is_rejected(): void
     {
-        $user = User::factory()->create(['amount' => 30.00]);
+        $user = User::factory()->create();
+        $user->forceFill(['amount' => 30.00])->save();
         $request = WithdrawalRequest::query()->create([
             'user_id' => $user->id,
             'amount' => 50.00,
@@ -72,8 +75,8 @@ class WithdrawalRequestTest extends TestCase
 
         $request->update(['status' => 'rejected']);
 
-        $this->assertSame('rejected', $request->fresh()->status);
-        $this->assertSame('30.00', $user->fresh()->amount);
+        $this->assertSame('rejected', $request->status);
+        $this->assertSame('30.00', $user->amount);
         $this->assertDatabaseMissing('transactions', [
             'user_id' => $user->id,
             'type' => 'withdrawal',

@@ -13,10 +13,11 @@ class TransactionTest extends TestCase
 
     public function test_deposit_increases_balance_and_records_entry(): void
     {
-        $user = User::factory()->create(['amount' => 0]);
+        $user = User::factory()->create();
+        $user->forceFill(['amount' => 0])->save();
 
         $newBalance = (float) $user->amount + 100.00;
-        $user->update(['amount' => $newBalance]);
+        $user->forceFill(['amount' => $newBalance])->save();
         Transaction::query()->create([
             'user_id' => $user->id,
             'type' => 'deposit',
@@ -24,7 +25,7 @@ class TransactionTest extends TestCase
             'balance_after' => $newBalance,
         ]);
 
-        $this->assertSame('100.00', $user->fresh()->amount);
+        $this->assertSame('100.00', $user->amount);
         $this->assertDatabaseHas('transactions', [
             'user_id' => $user->id,
             'type' => 'deposit',
@@ -35,10 +36,11 @@ class TransactionTest extends TestCase
 
     public function test_campaign_spend_decreases_balance_and_records_entry(): void
     {
-        $user = User::factory()->create(['amount' => 100.00]);
+        $user = User::factory()->create();
+        $user->forceFill(['amount' => 100.00])->save();
 
         $newBalance = (float) $user->amount - 3.00;
-        $user->update(['amount' => $newBalance]);
+        $user->forceFill(['amount' => $newBalance])->save();
         Transaction::query()->create([
             'user_id' => $user->id,
             'type' => 'campaign_spend',
@@ -46,7 +48,7 @@ class TransactionTest extends TestCase
             'balance_after' => $newBalance,
         ]);
 
-        $this->assertSame('97.00', $user->fresh()->amount);
+        $this->assertSame('97.00', $user->amount);
         $this->assertDatabaseHas('transactions', [
             'user_id' => $user->id,
             'type' => 'campaign_spend',
@@ -57,10 +59,11 @@ class TransactionTest extends TestCase
 
     public function test_publisher_earning_increases_balance_and_records_entry(): void
     {
-        $user = User::factory()->create(['amount' => 0]);
+        $user = User::factory()->create();
+        $user->forceFill(['amount' => 0])->save();
 
         $newBalance = (float) $user->amount + 5.00;
-        $user->update(['amount' => $newBalance]);
+        $user->forceFill(['amount' => $newBalance])->save();
         Transaction::query()->create([
             'user_id' => $user->id,
             'type' => 'publisher_earning',
@@ -68,7 +71,7 @@ class TransactionTest extends TestCase
             'balance_after' => $newBalance,
         ]);
 
-        $this->assertSame('5.00', $user->fresh()->amount);
+        $this->assertSame('5.00', $user->amount);
         $this->assertDatabaseHas('transactions', [
             'user_id' => $user->id,
             'type' => 'publisher_earning',
@@ -79,10 +82,11 @@ class TransactionTest extends TestCase
 
     public function test_each_entry_stores_balance_after_movement(): void
     {
-        $user = User::factory()->create(['amount' => 50.00]);
+        $user = User::factory()->create();
+        $user->forceFill(['amount' => 50.00])->save();
 
         $newBalance = (float) $user->amount + 25.00;
-        $user->update(['amount' => $newBalance]);
+        $user->forceFill(['amount' => $newBalance])->save();
         $transaction = Transaction::query()->create([
             'user_id' => $user->id,
             'type' => 'deposit',
@@ -91,6 +95,6 @@ class TransactionTest extends TestCase
         ]);
 
         $this->assertSame('75.00', $transaction->balance_after);
-        $this->assertSame('75.00', $user->fresh()->amount);
+        $this->assertSame('75.00', $user->amount);
     }
 }

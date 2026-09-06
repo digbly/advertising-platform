@@ -17,6 +17,7 @@
     <source>
         <include>
             <directory>app</directory>
+            <directory>modules/advertising/app</directory>
         </include>
     </source>
     <php>

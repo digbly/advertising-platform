@@ -5,34 +5,13 @@ namespace Modules\Advertising\Tests\Feature;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Modules\Advertising\Models\Campaign;
 use Modules\Advertising\Models\DailyStat;
 use Modules\Advertising\Models\EventLog;
-use Modules\Advertising\Models\Website;
 use Tests\TestCase;
 
 class DailyStatTest extends TestCase
 {
-    use RefreshDatabase;
-
-    private function makeCampaign(User $user): Campaign
-    {
-        return Campaign::query()->create([
-            'user_id' => $user->id,
-            'name' => 'Test Campaign',
-            'code' => 'DST'.substr((string) $user->id, 0, 8),
-            'rate' => 5.00,
-        ]);
-    }
-
-    private function makeWebsite(User $user): Website
-    {
-        return Website::query()->create([
-            'user_id' => $user->id,
-            'url' => 'https://example.com',
-            'name' => 'Example Blog',
-        ]);
-    }
+    use CreatesCampaignAndWebsite, RefreshDatabase;
 
     public function test_aggregating_days_events_produces_correct_counts(): void
     {
