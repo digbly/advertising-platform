@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Auth\Http\Controllers;
+namespace Modules\Auth\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Firebase\JWT\JWT;

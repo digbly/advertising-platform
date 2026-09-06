@@ -44,10 +44,10 @@ return [
             // 'views/master' => 'resources/views/components/layouts/master.blade.php',
             'scaffold/config' => 'config/config.php',
             'composer' => 'composer.json',
-            'assets/js/app' => 'resources/assets/js/app.js',
-            'assets/sass/app' => 'resources/assets/sass/app.scss',
-            'vite' => 'vite.config.js',
-            'package' => 'package.json',
+            // 'assets/js/app' => 'resources/assets/js/app.js',
+            // 'assets/sass/app' => 'resources/assets/sass/app.scss',
+            // 'vite' => 'vite.config.js',
+            // 'package' => 'package.json',
         ],
         'replacements' => [
             /**
@@ -274,10 +274,10 @@ return [
     |
     */
     'composer' => [
-        'vendor' => env('MODULE_VENDOR', 'juzaweb'),
+        'vendor' => env('MODULE_VENDOR', 'digbly'),
         'author' => [
-            'name' => env('MODULE_AUTHOR_NAME', 'Nicolas Widart'),
-            'email' => env('MODULE_AUTHOR_EMAIL', 'n.widart@gmail.com'),
+            'name' => env('MODULE_AUTHOR_NAME', 'The Digbly Team'),
+            'email' => env('MODULE_AUTHOR_EMAIL', 'openscource@digbly.com'),
         ],
         'composer-output' => false,
     ],
