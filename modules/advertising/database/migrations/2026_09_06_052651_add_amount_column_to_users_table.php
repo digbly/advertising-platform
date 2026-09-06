@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->decimal('amount', 10, 2)->default(0);
+            $table->string('company_name', 150)->nullable();
+            $table->string('payout_method', 50)->nullable();
+            $table->string('payout_account', 255)->nullable();
         });
     }
 
@@ -22,7 +25,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('amount');
+            $table->dropColumn(['amount', 'company_name', 'payout_method', 'payout_account']);
         });
     }
 };
