@@ -10,6 +10,8 @@ export default defineConfig({
                 'modules/admin/resources/assets/js/app.js',
                 'modules/frontend/resources/assets/css/frontend.css',
                 'modules/frontend/resources/assets/js/frontend.js',
+                'modules/auth/resources/assets/css/auth.css',
+                'modules/auth/resources/assets/js/app.js',
             ],
             refresh: true,
         }),

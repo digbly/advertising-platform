@@ -17,15 +17,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Frontend URL
+    | Dashboard URL
     |--------------------------------------------------------------------------
     |
-    | This value is the URL of the frontend application (e.g. Vite dev server).
+    | This value is the URL of the dashboard application (e.g. Vite dev server).
     | Used for building redirect URLs such as PayPal return/cancel URLs.
     |
     */
 
-    'frontend_url' => env('FRONTEND_URL', 'http://localhost:5173'),
+    'dashboard_url' => env('DASHBOARD_URL', 'http://localhost:5173'),
 
     /*
     |--------------------------------------------------------------------------

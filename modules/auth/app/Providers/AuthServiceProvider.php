@@ -69,14 +69,6 @@ class AuthServiceProvider extends ModuleServiceProvider
 
     protected function registerVerifyEmail(): void
     {
-        VerifyEmail::createUrlUsing(static function (object $notifiable): string {
-            $frontendUrl = config('app.frontend_url', 'http://localhost:5173');
-            $id = $notifiable->getKey();
-            $hash = sha1($notifiable->getEmailForVerification());
-
-            return $frontendUrl.'/auth/verify-email/'.$id.'/'.$hash;
-        });
-
         VerifyEmail::toMailUsing(static function (object $notifiable, string $url): MailMessage {
             return (new MailMessage)
                 ->subject(__('auth.verify_email.subject'))

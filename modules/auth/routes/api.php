@@ -30,21 +30,21 @@ Route::middleware('throttle:auth')->post('request-challenge', [CaptchaController
 */
 Route::prefix('auth/user')->group(function () {
     Route::middleware('throttle:auth')->group(function () {
-        Route::post('login', [AuthController::class, 'login'])->middleware('captcha');
-        Route::post('refresh-token', [AuthController::class, 'refreshToken']);
-        Route::post('register', [AuthController::class, 'register'])->middleware('captcha');
-        Route::post('resend-verification-email', [AuthController::class, 'resendVerificationEmail']);
-        Route::post('email/verify/{id}/{hash}', [AuthController::class, 'verifyEmail'])->name('verification.verify');
-        Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->middleware('captcha');
-        Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('password.reset');
+        Route::post('login', [AuthController::class, 'login'])->middleware('captcha')->name('auth.user.login');
+        Route::post('refresh-token', [AuthController::class, 'refreshToken'])->name('auth.user.refresh-token');
+        Route::post('register', [AuthController::class, 'register'])->middleware('captcha')->name('auth.user.register');
+        Route::post('resend-verification-email', [AuthController::class, 'resendVerificationEmail'])->name('auth.user.resend-verification-email');
+        Route::post('email/verify/{id}/{hash}', [AuthController::class, 'verifyEmail'])->name('auth.user.verify');
+        Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->middleware('captcha')->name('auth.user.forgot-password');
+        Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('auth.user.reset-password');
 
-        Route::get('social/{driver}/redirect', [SocialLoginController::class, 'redirect'])->name('api.user.social.redirect');
-        Route::post('social/{driver}/callback', [SocialLoginController::class, 'callback'])->name('api.user.social.callback');
+        Route::get('social/{driver}/redirect', [SocialLoginController::class, 'redirect'])->name('auth.user.social.redirect');
+        Route::post('social/{driver}/callback', [SocialLoginController::class, 'callback'])->name('auth.user.social.callback');
     });
 
     Route::middleware('auth:api')->group(function () {
-        Route::put('change-password', [AuthController::class, 'changePassword']);
-        Route::post('logout', [AuthController::class, 'logout']);
+        Route::put('change-password', [AuthController::class, 'changePassword'])->name('auth.user.change-password');
+        Route::post('logout', [AuthController::class, 'logout'])->name('auth.user.logout');
     });
 });
 
