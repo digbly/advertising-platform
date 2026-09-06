@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Admin panel routes (Blade + Tailwind). Main layout:
-| resources/views/layouts/admin.blade.php.
+| modules/admin/resources/views/layouts/admin.blade.php.
 |
 */
 
@@ -23,4 +23,4 @@ Route::get('/admin/set-locale/{locale}', function (string $locale) {
 })->name('locale.set');
 
 // ── Admin dashboard ──────────────────────────────────────────────
-Route::view('/admin', 'admin.dashboard')->name('admin.dashboard');
+Route::view('/admin', 'admin::dashboard')->name('admin.dashboard');

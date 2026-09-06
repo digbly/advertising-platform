@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
 
-    @vite(['resources/css/frontend.css', 'resources/js/frontend.js'])
+    @vite(['modules/frontend/resources/assets/css/frontend.css', 'modules/frontend/resources/assets/js/frontend.js'])
     @stack('styles')
 </head>
 <body class="bg-slate-950 text-slate-200 antialiased">
@@ -137,14 +137,6 @@
         </div>
     </footer>
 
-    {{-- Mobile menu toggle script --}}
-    <script>
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
-        if (btn && menu) {
-            btn.addEventListener('click', () => menu.classList.toggle('hidden'));
-        }
-    </script>
     @stack('scripts')
 </body>
 </html>

@@ -6,10 +6,10 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/css/app.css',
-                'resources/js/app.js',
-                'resources/css/frontend.css',
-                'resources/js/frontend.js',
+                'modules/admin/resources/assets/css/app.css',
+                'modules/admin/resources/assets/js/app.js',
+                'modules/frontend/resources/assets/css/frontend.css',
+                'modules/frontend/resources/assets/js/frontend.js',
             ],
             refresh: true,
         }),
