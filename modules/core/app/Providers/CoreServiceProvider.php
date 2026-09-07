@@ -2,8 +2,9 @@
 
 namespace Modules\Core\Providers;
 
+use Illuminate\Support\Facades\App;
+use Modules\Core\SettingRegistry;
 use Nwidart\Modules\Support\ModuleServiceProvider;
-use Illuminate\Console\Scheduling\Schedule;
 
 class CoreServiceProvider extends ModuleServiceProvider
 {
@@ -35,12 +36,14 @@ class CoreServiceProvider extends ModuleServiceProvider
     ];
 
     /**
-     * Define module schedules.
-     * 
-     * @param $schedule
+     * Register any application services.
      */
-    // protected function configureSchedules(Schedule $schedule): void
-    // {
-    //     $schedule->command('inspire')->hourly();
-    // }
+    public function register(): void
+    {
+        parent::register();
+
+        App::singleton(SettingRegistry::class, function () {
+            return new SettingRegistry;
+        });
+    }
 }
