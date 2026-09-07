@@ -19,18 +19,6 @@ class SettingConfig
         }
     }
 
-    public static function fromArray(string $key, array $config): self
-    {
-        return new self(
-            key: $key,
-            label: $config['label'] ?? $key,
-            rules: $config['rules'] ?? [],
-            default: $config['default'] ?? null,
-            description: $config['description'] ?? '',
-            group: $config['group'] ?? 'general',
-        );
-    }
-
     public function getKey(): string
     {
         return $this->key;

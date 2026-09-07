@@ -2,6 +2,7 @@
 
 namespace Modules\Core;
 
+use Closure;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use InvalidArgumentException;
@@ -16,13 +17,16 @@ class SettingRegistry
      *
      * @throws InvalidArgumentException If the key is already registered.
      */
-    public function register(string $key, array $config): void
+    public function register(string $key, Closure $callback): void
     {
         if (isset($this->settings[$key])) {
             throw new InvalidArgumentException("Setting [{$key}] is already registered.");
         }
 
-        $this->settings[$key] = SettingConfig::fromArray($key, $config);
+        $builder = new SettingConfigBuilder;
+        $callback($builder);
+
+        $this->settings[$key] = $builder->build($key);
     }
 
     /**
