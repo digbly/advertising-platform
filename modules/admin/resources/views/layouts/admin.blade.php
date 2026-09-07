@@ -22,27 +22,7 @@
         $userInitial = strtoupper(mb_substr($userName, 0, 1));
 
         $currentLocale = app()->getLocale();
-        $navigation = [
-            [
-                'section' => __('admin.sidebar.overview'),
-                'items' => [
-                    ['label' => __('admin.sidebar.dashboard'), 'icon' => 'dashboard', 'route' => 'admin.dashboard', 'active' => request()->routeIs('admin.dashboard')],
-                ],
-            ],
-            [
-                'section' => __('admin.sidebar.management'),
-                'items' => [
-                    ['label' => __('admin.sidebar.contacts'), 'icon' => 'contact', 'route' => '#', 'active' => false],
-                    ['label' => __('admin.sidebar.users'), 'icon' => 'users', 'route' => '#', 'active' => false],
-                ],
-            ],
-            [
-                'section' => __('admin.sidebar.system'),
-                'items' => [
-                    ['label' => __('admin.sidebar.settings'), 'icon' => 'settings', 'route' => 'admin.settings.index', 'active' => request()->routeIs('admin.settings*')],
-                ],
-            ],
-        ];
+        $navigation = app(\Modules\Core\MenuRegistry::class)->all();
 
         $icons = [
             'dashboard' => '<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/>',
@@ -85,22 +65,27 @@
                 @foreach ($navigation as $group)
                     <div>
                         <p class="sidebar-section-title mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">
-                            {{ $group['section'] }}
+                            {{ __($group['section']) }}
                         </p>
                         <ul class="space-y-1">
                             @foreach ($group['items'] as $item)
+                                @php
+                                    $active = $item['active'] !== null
+                                        ? request()->routeIs($item['active'])
+                                        : ($item['route'] !== '#' && request()->routeIs($item['route']));
+                                @endphp
                                 <li>
                                     <a href="{{ $item['route'] === '#' ? '#' : route($item['route']) }}"
                                         @class([
                                             'sidebar-nav-link group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
-                                            'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300' => $item['active'],
-                                            'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white' => !$item['active'],
+                                            'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300' => $active,
+                                            'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white' => !$active,
                                         ])>
                                         <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
                                             {!! $icons[$item['icon']] !!}
                                         </svg>
-                                        <span class="sidebar-label truncate">{{ $item['label'] }}</span>
-                                        @if ($item['active'])
+                                        <span class="sidebar-label truncate">{{ __($item['label']) }}</span>
+                                        @if ($active)
                                             <span class="ml-auto h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
                                         @endif
                                     </a>
@@ -334,9 +319,9 @@
         $searchIndex = collect($navigation)
             ->flatMap(fn ($group) => $group['items'])
             ->map(fn ($item) => [
-                'label' => $item['label'],
+                'label' => __($item['label']),
                 'url' => $item['route'] === '#' ? '#' : route($item['route']),
-                'keywords' => $item['label'],
+                'keywords' => __($item['label']),
                 'icon' => '<svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">' . $icons[$item['icon']] . '</svg>',
             ])
             ->values()

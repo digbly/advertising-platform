@@ -3,6 +3,7 @@
 namespace Modules\Core\Providers;
 
 use Illuminate\Support\Facades\App;
+use Modules\Core\MenuRegistry;
 use Modules\Core\SettingRegistry;
 use Nwidart\Modules\Support\ModuleServiceProvider;
 
@@ -44,6 +45,10 @@ class CoreServiceProvider extends ModuleServiceProvider
 
         App::singleton(SettingRegistry::class, function () {
             return new SettingRegistry;
+        });
+
+        App::singleton(MenuRegistry::class, function () {
+            return new MenuRegistry;
         });
     }
 

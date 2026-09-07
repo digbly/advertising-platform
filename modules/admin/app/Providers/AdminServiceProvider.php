@@ -3,6 +3,8 @@
 namespace Modules\Admin\Providers;
 
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\Facades\App;
+use Modules\Core\MenuRegistry;
 use Nwidart\Modules\Support\ModuleServiceProvider;
 
 class AdminServiceProvider extends ModuleServiceProvider
@@ -35,6 +37,14 @@ class AdminServiceProvider extends ModuleServiceProvider
     ];
 
     /**
+     * Register any application services.
+     */
+    public function register(): void
+    {
+        parent::register();
+    }
+
+    /**
      * Bootstrap any application services.
      */
     public function boot(): void
@@ -42,6 +52,28 @@ class AdminServiceProvider extends ModuleServiceProvider
         parent::boot();
 
         $this->loadTranslations();
+        $this->registerDefaultMenu();
+    }
+
+    /**
+     * Register the default admin sidebar menu.
+     */
+    protected function registerDefaultMenu(): void
+    {
+        $registry = App::make(MenuRegistry::class);
+
+        $registry->register('admin.sidebar.overview', [
+            ['label' => 'admin.sidebar.dashboard', 'icon' => 'dashboard', 'route' => 'admin.dashboard'],
+        ]);
+
+        $registry->register('admin.sidebar.management', [
+            ['label' => 'admin.sidebar.contacts', 'icon' => 'contact', 'route' => '#'],
+            ['label' => 'admin.sidebar.users', 'icon' => 'users', 'route' => '#'],
+        ]);
+
+        $registry->register('admin.sidebar.system', [
+            ['label' => 'admin.sidebar.settings', 'icon' => 'settings', 'route' => 'admin.settings.index', 'active' => 'admin.settings*'],
+        ]);
     }
 
     /**
