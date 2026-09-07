@@ -34,70 +34,31 @@
         @method('PUT')
 
         {{-- General --}}
-        <div class="mb-6 rounded-xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900">
-            <div class="border-b border-gray-200 px-6 py-4 dark:border-gray-800">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">General</h3>
-            </div>
-            <div class="divide-y divide-gray-100 dark:divide-gray-800">
+        <x-admin::settings.card title="General">
+            <x-admin::settings.field
+                name="site_title"
+                label="Site Title"
+                description="The title of the website."
+            >
+                <x-admin::input name="site_title" id="site_title" :value="$values['site_title'] ?? ''" required />
+            </x-admin::settings.field>
 
-                {{-- Site Title --}}
-                <div class="px-6 py-5">
-                    <div class="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
-                        <div class="min-w-0 flex-1">
-                            <label for="site_title" class="block text-sm font-medium text-gray-900 dark:text-white">Site Title</label>
-                            <p class="mt-0.5 text-xs text-gray-500 dark:text-gray-400">The title of the website.</p>
-                        </div>
-                        <div class="mt-2 w-full sm:mt-0 sm:ml-6 sm:w-96">
-                            <input type="text" id="site_title" name="site_title"
-                                value="{{ old('site_title', $values['site_title'] ?? '') }}"
-                                required
-                                class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm transition-colors placeholder:text-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-indigo-400" />
-                            @error('site_title')
-                                <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
+            <x-admin::settings.field
+                name="site_name"
+                label="Site Name"
+                description="The display name of the website."
+            >
+                <x-admin::input name="site_name" id="site_name" :value="$values['site_name'] ?? ''" required />
+            </x-admin::settings.field>
 
-                {{-- Site Name --}}
-                <div class="px-6 py-5">
-                    <div class="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
-                        <div class="min-w-0 flex-1">
-                            <label for="site_name" class="block text-sm font-medium text-gray-900 dark:text-white">Site Name</label>
-                            <p class="mt-0.5 text-xs text-gray-500 dark:text-gray-400">The display name of the website.</p>
-                        </div>
-                        <div class="mt-2 w-full sm:mt-0 sm:ml-6 sm:w-96">
-                            <input type="text" id="site_name" name="site_name"
-                                value="{{ old('site_name', $values['site_name'] ?? '') }}"
-                                required
-                                class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm transition-colors placeholder:text-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-indigo-400" />
-                            @error('site_name')
-                                <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Site Description --}}
-                <div class="px-6 py-5">
-                    <div class="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
-                        <div class="min-w-0 flex-1">
-                            <label for="site_description" class="block text-sm font-medium text-gray-900 dark:text-white">Site Description</label>
-                            <p class="mt-0.5 text-xs text-gray-500 dark:text-gray-400">A short description of the website.</p>
-                        </div>
-                        <div class="mt-2 w-full sm:mt-0 sm:ml-6 sm:w-96">
-                            <input type="text" id="site_description" name="site_description"
-                                value="{{ old('site_description', $values['site_description'] ?? '') }}"
-                                class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm transition-colors placeholder:text-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-indigo-400" />
-                            @error('site_description')
-                                <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+            <x-admin::settings.field
+                name="site_description"
+                label="Site Description"
+                description="A short description of the website."
+            >
+                <x-admin::input name="site_description" id="site_description" :value="$values['site_description'] ?? ''" />
+            </x-admin::settings.field>
+        </x-admin::settings.card>
 
         {{-- Save button --}}
         <div class="flex items-center justify-end gap-3">
