@@ -4,6 +4,7 @@ namespace Modules\Admin\Providers;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\App;
+use Modules\Core\MenuBuilder;
 use Modules\Core\MenuRegistry;
 use Nwidart\Modules\Support\ModuleServiceProvider;
 
@@ -62,18 +63,18 @@ class AdminServiceProvider extends ModuleServiceProvider
     {
         $registry = App::make(MenuRegistry::class);
 
-        $registry->register('admin.sidebar.overview', [
-            ['label' => 'admin.sidebar.dashboard', 'icon' => 'dashboard', 'route' => 'admin.dashboard'],
-        ]);
+        $registry->register('admin.sidebar.overview', function (MenuBuilder $menu) {
+            $menu->add('admin.sidebar.dashboard', 'dashboard', 'admin.dashboard');
+        });
 
-        $registry->register('admin.sidebar.management', [
-            ['label' => 'admin.sidebar.contacts', 'icon' => 'contact', 'route' => '#'],
-            ['label' => 'admin.sidebar.users', 'icon' => 'users', 'route' => '#'],
-        ]);
+        $registry->register('admin.sidebar.management', function (MenuBuilder $menu) {
+            $menu->add('admin.sidebar.contacts', 'contact', '#');
+            $menu->add('admin.sidebar.users', 'users', '#');
+        });
 
-        $registry->register('admin.sidebar.system', [
-            ['label' => 'admin.sidebar.settings', 'icon' => 'settings', 'route' => 'admin.settings.index', 'active' => 'admin.settings*'],
-        ]);
+        $registry->register('admin.sidebar.system', function (MenuBuilder $menu) {
+            $menu->add('admin.sidebar.settings', 'settings', 'admin.settings.index', 'admin.settings*');
+        });
     }
 
     /**

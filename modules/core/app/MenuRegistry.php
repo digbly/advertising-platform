@@ -2,6 +2,7 @@
 
 namespace Modules\Core;
 
+use Closure;
 use InvalidArgumentException;
 
 class MenuRegistry
@@ -16,24 +17,20 @@ class MenuRegistry
     /**
      * Register a menu section with its items.
      *
-     * @param  array<int, array{label: string, icon: string, route: string, active?: ?string}>  $items
-     *
      * @throws InvalidArgumentException If the section is already registered.
      */
-    public function register(string $section, array $items): void
+    public function register(string $section, Closure $callback): void
     {
         if ($this->has($section)) {
             throw new InvalidArgumentException("Menu section [{$section}] is already registered.");
         }
 
+        $builder = new MenuBuilder;
+        $callback($builder);
+
         $this->sections[] = [
             'section' => $section,
-            'items' => array_map(fn (array $item) => [
-                'label' => $item['label'],
-                'icon' => $item['icon'],
-                'route' => $item['route'],
-                'active' => $item['active'] ?? null,
-            ], $items),
+            'items' => $builder->build(),
         ];
     }
 
