@@ -4,7 +4,32 @@
  * - Sidebar: toggle mobile (off-canvas) + collapse desktop
  * - Dropdown: user menu, notifications
  * - Global search (Ctrl/Cmd + K)
+ * - jQuery Validation cho các form admin
  */
+import $ from 'jquery';
+import 'jquery-validation';
+
+/**
+ * Cấu hình validation cho từng form admin.
+ * Key khớp với giá trị của thuộc tính `data-validate` trên <form>.
+ */
+const validators = {
+    settings: {
+        rules: {
+            site_title: { required: true },
+            site_name: { required: true },
+        },
+        messages: {
+            site_title: {
+                required: 'The site title is required.',
+            },
+            site_name: {
+                required: 'The site name is required.',
+            },
+        },
+    },
+};
+
 (function () {
     'use strict';
 
@@ -234,5 +259,28 @@
 
         initDropdowns();
         initSearch();
+
+        // jQuery Validation
+        $('[data-validate]').each(function () {
+            const $form = $(this);
+            const config = validators[$form.data('validate')];
+            if (!config) return;
+
+            $form.validate({
+                errorElement: 'p',
+                errorClass: 'validate-error',
+                rules: config.rules,
+                messages: config.messages,
+                errorPlacement: function (error, element) {
+                    element.parent().append(error);
+                },
+                highlight: function (element) {
+                    $(element).addClass('validate-invalid');
+                },
+                unhighlight: function (element) {
+                    $(element).removeClass('validate-invalid');
+                },
+            });
+        });
     });
 })();

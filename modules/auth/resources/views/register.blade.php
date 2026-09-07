@@ -2,7 +2,7 @@
     title="Create your account"
     subtitle="Join AdsRock and start growing today."
 >
-    <form method="POST" action="{{ route('auth.register') }}" class="space-y-5">
+    <form method="POST" action="{{ route('auth.register') }}" class="space-y-5" data-validate="register">
         @csrf
 
         @if ($errors->any())

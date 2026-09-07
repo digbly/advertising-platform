@@ -29,7 +29,7 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('admin.settings.update') }}">
+    <form method="POST" action="{{ route('admin.settings.update') }}" data-validate="settings">
         @csrf
         @method('PUT')
 

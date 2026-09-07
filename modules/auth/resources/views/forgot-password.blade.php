@@ -8,7 +8,7 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('auth.forgot-password') }}" class="space-y-5">
+    <form method="POST" action="{{ route('auth.forgot-password') }}" class="space-y-5" data-validate="forgot-password">
         @csrf
 
         @if ($errors->any())

@@ -42,3 +42,13 @@
 ::-webkit-scrollbar-thumb:hover {
     background-color: rgb(156 163 175 / 0.6);
 }
+
+/* ===== jQuery Validation ===== */
+.validate-error {
+    @apply mt-1 text-xs text-red-600 dark:text-red-400;
+}
+
+.validate-invalid {
+    border-color: #dc2626 !important;
+    box-shadow: 0 0 0 2px rgb(220 38 38 / 0.15);
+}

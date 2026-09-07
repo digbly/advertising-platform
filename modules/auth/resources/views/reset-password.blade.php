@@ -2,7 +2,7 @@
     title="Set a new password"
     subtitle="Choose a strong password for your account."
 >
-    <form method="POST" action="{{ route('password.update') }}" class="space-y-5">
+    <form method="POST" action="{{ route('password.update') }}" class="space-y-5" data-validate="reset-password">
         @csrf
 
         <input type="hidden" name="token" value="{{ $token ?? '' }}">
