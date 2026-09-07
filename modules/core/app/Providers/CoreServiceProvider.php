@@ -46,4 +46,53 @@ class CoreServiceProvider extends ModuleServiceProvider
             return new SettingRegistry;
         });
     }
+
+    /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
+    {
+        $this->loadTranslations();
+        $this->registerDefaultSettings();
+    }
+
+    /**
+     * Load module translations.
+     */
+    protected function loadTranslations(): void
+    {
+        $this->loadTranslationsFrom(module_path($this->name, '/resources/lang'));
+    }
+
+    /**
+     * Register default settings.
+     */
+    protected function registerDefaultSettings(): void
+    {
+        $registry = App::make(SettingRegistry::class);
+
+        $registry->register('site_title', function ($builder) {
+            $builder->label('Site Title')
+                ->rules(['required', 'string', 'max:255'])
+                ->default('My Site')
+                ->description('The title of the website.')
+                ->group('general');
+        });
+
+        $registry->register('site_name', function ($builder) {
+            $builder->label('Site Name')
+                ->rules(['required', 'string', 'max:255'])
+                ->default('My Site')
+                ->description('The display name of the website.')
+                ->group('general');
+        });
+
+        $registry->register('site_description', function ($builder) {
+            $builder->label('Site Description')
+                ->rules(['nullable', 'string', 'max:500'])
+                ->default(null)
+                ->description('A short description of the website.')
+                ->group('general');
+        });
+    }
 }

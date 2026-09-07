@@ -39,7 +39,7 @@
             [
                 'section' => __('admin.sidebar.system'),
                 'items' => [
-                    ['label' => __('admin.sidebar.settings'), 'icon' => 'settings', 'route' => '#', 'active' => false],
+                    ['label' => __('admin.sidebar.settings'), 'icon' => 'settings', 'route' => 'admin.settings.index', 'active' => request()->routeIs('admin.settings*')],
                 ],
             ],
         ];

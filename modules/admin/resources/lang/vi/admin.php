@@ -91,4 +91,12 @@ return [
         'en' => 'English',
         'vi' => 'Tiếng Việt',
     ],
+    'settings' => [
+        'page_title' => 'Cài đặt',
+        'page_description' => 'Quản lý cài đặt website.',
+        'update_success' => 'Cập nhật cài đặt thành công.',
+        'save' => 'Lưu thay đổi',
+        'cancel' => 'Hủy',
+        'optional' => 'Không bắt buộc',
+    ],
 ];

@@ -2,13 +2,16 @@
 
 namespace Modules\Core\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\Core\Database\Factories\SettingFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Setting extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'key';
+
+    public $incrementing = false;
 
     protected $keyType = 'string';
 
@@ -19,9 +22,4 @@ class Setting extends Model
         'key',
         'value',
     ];
-
-    // protected static function newFactory(): SettingFactory
-    // {
-    //     // return SettingFactory::new();
-    // }
 }

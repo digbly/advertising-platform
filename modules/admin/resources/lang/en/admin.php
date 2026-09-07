@@ -91,4 +91,12 @@ return [
         'en' => 'English',
         'vi' => 'Tiếng Việt',
     ],
+    'settings' => [
+        'page_title' => 'Settings',
+        'page_description' => 'Manage your website settings.',
+        'update_success' => 'Settings updated successfully.',
+        'save' => 'Save changes',
+        'cancel' => 'Cancel',
+        'optional' => 'Optional',
+    ],
 ];

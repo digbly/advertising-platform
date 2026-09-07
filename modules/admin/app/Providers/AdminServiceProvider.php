@@ -2,8 +2,8 @@
 
 namespace Modules\Admin\Providers;
 
-use Nwidart\Modules\Support\ModuleServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
+use Nwidart\Modules\Support\ModuleServiceProvider;
 
 class AdminServiceProvider extends ModuleServiceProvider
 {
@@ -35,9 +35,31 @@ class AdminServiceProvider extends ModuleServiceProvider
     ];
 
     /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
+    {
+        parent::boot();
+
+        $this->loadTranslations();
+    }
+
+    /**
+     * Load module translations.
+     */
+    protected function loadTranslations(): void
+    {
+        $langPath = module_path($this->name, '/resources/lang');
+
+        if (is_dir($langPath)) {
+            $this->loadTranslationsFrom($langPath);
+        }
+    }
+
+    /**
      * Define module schedules.
-     * 
-     * @param $schedule
+     *
+     * @param  $schedule
      */
     // protected function configureSchedules(Schedule $schedule): void
     // {
